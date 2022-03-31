@@ -4,7 +4,30 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+let heartsNodeArray = [...document.getElementsByClassName("like-glyph")];
+let modal = document.getElementById('modal');
+let modalParagraph = document.getElementById('modal-message');
 
+let callServerAndCatch = () => {
+  mimicServerCall()
+  .catch(error => handleError(error))
+}
+
+
+let handleError = (errorMessage) => {
+  modal.classList.remove("hidden")
+  modalParagraph.innerText = errorMessage
+  setTimeout(() => { 
+    modal.classList.add("hidden") 
+    modalParagraph.innerText = ""
+  }, 3000);
+
+}
+
+
+heartsNodeArray.map(heartNode => {
+  heartNode.addEventListener('click', callServerAndCatch)
+})
 
 
 //------------------------------------------------------------------------------
